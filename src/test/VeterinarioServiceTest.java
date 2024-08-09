@@ -39,6 +39,7 @@ class VeterinarioServiceTest {
     @Test
     @DisplayName("Testear que se agregue un veterinario de manera correcta")
     void caso1(){
+        System.out.println("caso 1");
         //DADO
         Veterinario veterinario = new Veterinario("12345", "Juan","Roldan","Dentista");
         //CUANDO
