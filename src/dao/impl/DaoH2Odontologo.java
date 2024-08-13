@@ -2,7 +2,7 @@ package dao.impl;
 
 import dao.IDao;
 import db.H2Connection;
-import model.Veterinario;
+import model.Odontologo;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -10,34 +10,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DaoH2Veterinario implements IDao<Veterinario> {
+public class DaoH2Odontologo implements IDao<Odontologo> {
 
-    public static final Logger logger = Logger.getLogger(DaoH2Veterinario.class);
-    public static final String INSERT = "INSERT INTO VETERINARIOS VALUES (DEFAULT,?,?,?,?)";
-    public static  final String SELECT_ALL = "SELECT * FROM VETERINARIOS";
+    public static final Logger logger = Logger.getLogger(DaoH2Odontologo.class);
+    public static final String INSERT = "INSERT INTO ODONTOLOGOS VALUES (DEFAULT,?,?,?)";
+    public static  final String SELECT_ALL = "SELECT * FROM ODONTOLOGOS";
 
     @Override
-    public Veterinario guardar(Veterinario veterinario) {
+    public Odontologo guardar(Odontologo odontologo) {
 
         Connection connection = null;
-        Veterinario veterinarioARetornar = null;
+        Odontologo odontologoARetornar = null;
         try {
             connection = H2Connection.getConnection();
             connection.setAutoCommit(false);
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, veterinario.getNroLicencia());
-            preparedStatement.setString(2, veterinario.getNombre());
-            preparedStatement.setString(3, veterinario.getApellido());
-            preparedStatement.setString(4, veterinario.getEspecialidad());
+            preparedStatement.setString(1, odontologo.getNroMatricula());
+            preparedStatement.setString(2, odontologo.getNombre());
+            preparedStatement.setString(3, odontologo.getApellido());
             preparedStatement.executeUpdate();
 
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             while (resultSet.next()){
                 Integer idDesdeDB = resultSet.getInt(1);
-                veterinarioARetornar = new Veterinario(idDesdeDB, veterinario.getNroLicencia(), veterinario.getNombre(),
-                        veterinario.getApellido(), veterinario.getEspecialidad());
+                odontologoARetornar = new Odontologo(idDesdeDB, odontologo.getNroMatricula(), odontologo.getNombre(),
+                        odontologo.getApellido());
             }
-            logger.info("Veterinario guardado en base de datos"+ veterinarioARetornar );
+            logger.info("Odontologo guardado en base de datos"+ odontologoARetornar );
 
             connection.commit();
 
@@ -59,28 +58,27 @@ public class DaoH2Veterinario implements IDao<Veterinario> {
                 e.printStackTrace();
             }
         }
-        return veterinarioARetornar;
+        return odontologoARetornar;
     }
 
     @Override
-    public List<Veterinario> buscarTodos() {
+    public List<Odontologo> buscarTodos() {
         Connection connection = null;
-        List<Veterinario> veterinarios = new ArrayList<>();
-        Veterinario veterinarioDesdeLaDB = null;
+        List<Odontologo> odontologos = new ArrayList<>();
+        Odontologo odontologoDesdeLaDB = null;
         try{
             connection = H2Connection.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SELECT_ALL);
             while (resultSet.next()){
                 Integer id = resultSet.getInt(1);
-                String nroLicecia = resultSet.getString(2);
+                String nroMatricula = resultSet.getString(2);
                 String nombre = resultSet.getString(3);
                 String apellido = resultSet.getString(4);
-                String especialidad = resultSet.getString(5);
-                veterinarioDesdeLaDB = new Veterinario (id, nroLicecia, nombre, apellido, especialidad);
-                // vamos cargando la lista de veterinarios
-                veterinarios.add(veterinarioDesdeLaDB);
-                logger.info("veterinario "+ veterinarioDesdeLaDB);
+                odontologoDesdeLaDB = new Odontologo(id, nroMatricula, nombre, apellido);
+                // vamos cargando la lista de odontologos
+                odontologos.add(odontologoDesdeLaDB);
+                logger.info("Odontologo "+ odontologoDesdeLaDB);
             }
 
         }catch (Exception e){
@@ -92,7 +90,7 @@ public class DaoH2Veterinario implements IDao<Veterinario> {
                 logger.error(e.getMessage());
             }
         }
-        return veterinarios;
+        return odontologos;
 
     }
 }

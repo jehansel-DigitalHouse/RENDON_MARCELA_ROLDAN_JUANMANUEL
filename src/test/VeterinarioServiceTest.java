@@ -1,7 +1,7 @@
 package test;
 
-import dao.impl.DaoH2Veterinario;
-import model.Veterinario;
+import dao.impl.DaoH2Odontologo;
+import model.Odontologo;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class VeterinarioServiceTest {
     private static final Logger logger = Logger.getLogger(VeterinarioServiceTest.class);
-    private static VeterinarioService veterinarioService = new VeterinarioService(new DaoH2Veterinario());
+    private static VeterinarioService veterinarioService = new VeterinarioService(new DaoH2Odontologo());
 
     @BeforeAll
     static void crearTabla(){
@@ -41,9 +41,9 @@ class VeterinarioServiceTest {
     void caso1(){
         System.out.println("caso 1");
         //DADO
-        Veterinario veterinario = new Veterinario("12345", "Juan","Roldan","Dentista");
+        Odontologo veterinario = new Odontologo("12345", "Juan","Roldan","Dentista");
         //CUANDO
-        Veterinario veterinarioDesdeBD = veterinarioService.guardarVeterinario(veterinario);
+        Odontologo veterinarioDesdeBD = veterinarioService.guardarVeterinario(veterinario);
         // entonces
         assertNotNull(veterinarioDesdeBD);
     }
@@ -53,7 +53,7 @@ class VeterinarioServiceTest {
     @DisplayName("Testear que se listen todos los veterinarios")
     void caso2(){
         //DADO
-        List<Veterinario> veterinarios;
+        List<Odontologo> veterinarios;
         //CUANDO
         veterinarios = veterinarioService.buscarTodos();
         // entonces
