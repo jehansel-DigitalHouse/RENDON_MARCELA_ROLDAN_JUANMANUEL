@@ -23,3 +23,5 @@ apellido VARCHAR(50) NOT NULL,
 INSERT INTO ODONTOLOGOS VALUES (DEFAULT,"12345","Marcela","Rendón") [42122-230]
 [2024-08-12 19:57:33] [ INFO ] [DaoH2Odontologo:39] Odontologo guardado en base de datosOdontologo{id=1, nroMatricula='6666', nombre='Jhoel', apellido='Acosta'}
 [2024-08-12 19:57:33] [ INFO ] [DaoH2Odontologo:81] Odontologo Odontologo{id=1, nroMatricula='6666', nombre='Jhoel', apellido='Acosta'}
+[2024-08-12 19:02:01] [ INFO ] [DaoH2Odontologo:39] Odontologo guardado en base de datosOdontologo{id=1, nroMatricula='6666', nombre='Jhoel', apellido='Acosta'}
+[2024-08-12 19:02:01] [ INFO ] [DaoH2Odontologo:81] Odontologo Odontologo{id=1, nroMatricula='6666', nombre='Jhoel', apellido='Acosta'}
