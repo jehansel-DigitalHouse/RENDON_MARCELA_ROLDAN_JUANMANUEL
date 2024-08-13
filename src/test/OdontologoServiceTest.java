@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import service.VeterinarioService;
+import service.OdontologoService;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,16 +15,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class VeterinarioServiceTest {
-    private static final Logger logger = Logger.getLogger(VeterinarioServiceTest.class);
-    private static VeterinarioService veterinarioService = new VeterinarioService(new DaoH2Odontologo());
+class OdontonlogoServiceTest {
+    private static final Logger logger = Logger.getLogger(OdontonlogoServiceTest.class);
+    private static OdontologoService odontologoService = new OdontologoService(new DaoH2Odontologo());
 
     @BeforeAll
     static void crearTabla(){
         Connection connection = null;
         try {
             Class.forName("org.h2.Driver");
-            connection =  DriverManager.getConnection("jdbc:h2:./BaseDatos/preexamen;INIT=RUNSCRIPT FROM 'create.sql'","sa","sa");
+            connection =  DriverManager.getConnection("jdbc:h2:./BaseDatos/odontologos;INIT=RUNSCRIPT FROM 'create.sql'","sa","sa");
         }catch (Exception e){
             logger.error(e.getMessage());
         }finally {
@@ -37,27 +37,27 @@ class VeterinarioServiceTest {
     }
 
     @Test
-    @DisplayName("Testear que se agregue un veterinario de manera correcta")
+    @DisplayName("Testear que se agregue un odontologo de manera correcta")
     void caso1(){
         System.out.println("caso 1");
         //DADO
-        Odontologo veterinario = new Odontologo("12345", "Juan","Roldan","Dentista");
+        Odontologo odontologo = new Odontologo("6666","Jhoel","Acosta");
         //CUANDO
-        Odontologo veterinarioDesdeBD = veterinarioService.guardarVeterinario(veterinario);
+        Odontologo odontologoDesdeBD = odontologoService.guardarOdontologo(odontologo);
         // entonces
-        assertNotNull(veterinarioDesdeBD);
+        assertNotNull(odontologoDesdeBD);
     }
 
 
     @Test
-    @DisplayName("Testear que se listen todos los veterinarios")
+    @DisplayName("Testear que se listen todos los odontologos")
     void caso2(){
         //DADO
-        List<Odontologo> veterinarios;
+        List<Odontologo> odontologos;
         //CUANDO
-        veterinarios = veterinarioService.buscarTodos();
+        odontologos = odontologoService.buscarTodos();
         // entonces
-        assertNotNull(veterinarios);
+        assertNotNull(odontologos);
     }
 
 
