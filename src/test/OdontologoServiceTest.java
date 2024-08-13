@@ -15,8 +15,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OdontonlogoServiceTest {
-    private static final Logger logger = Logger.getLogger(OdontonlogoServiceTest.class);
+class OdontologoServiceTest {
+    private static final Logger logger = Logger.getLogger(OdontologoServiceTest.class);
     private static OdontologoService odontologoService = new OdontologoService(new DaoH2Odontologo());
 
     @BeforeAll
